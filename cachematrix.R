@@ -7,17 +7,20 @@
 
 
 makeCacheMatrix <- function(x = matrix()) {
-        invrs <- NULL
+        invrs <- NULL #storing any inversion results in this variable
         set <- function(y) {
                 x <<- y
                 invrs <<- NULL
-        }
-        get <- function() x
-        setInv<- function(s) invrs <<- s
-        getInv <- function() invrs
+        } # setting a matrix to object as created by makeCacheMatrix; also apply null
+        # to invrs
+        
+        get <- function() x #returning input matrix
+        setInv<- function(s) invrs <<- s #setting the inverse matrix
+        getInv <- function() invrs #returning the inverse matrix
         list(set = set, get = get,
             setInv = setInv, getInv = getInv)
-}
+} #returning a list that is inclusive of all above functions, to be used in 
+#an object context for the makeCacheMatrix function
 
 ## The following function computes the inverse of the matrix created by makeCasheMatrix 
 ## If the inverse has already been calculated,it will retrieve the inverse from 
@@ -26,14 +29,15 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-        invrs <- x$getInv()
+        invrs <- x$getInv() #obtaining the inversed matrix from object x
         if (!is.null(invrs)) {
                 message("cache available, retrive data")
                 return(invrs)
-        }
-        mat <- x$get()
-        invrs <- solve(mat, ...)
-        x$setInv(invrs)
-        invrs
+        } #returns Null if no inverse has been calculated; 
+          #or else returns the calculated inversion
+        mat <- x$get() #if inversion hasn't been calculated, use x$get() to obtain matrix
+        invrs <- solve(mat, ...) #calculate the inversion of the matrix
+        x$setInv(invrs) #set the inversion to the object 
+        invrs #return results
 }
 
