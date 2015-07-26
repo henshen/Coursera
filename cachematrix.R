@@ -16,7 +16,7 @@ makeCacheMatrix <- function(x = matrix()) {
         setInv<- function(s) invrs <<- s
         getInv <- function() invrs
         list(set = set, get = get,
-             setInv = setInv, getInv = getInv)
+            setInv = setInv, getInv = getInv)
 }
 
 ## The following function computes the inverse of the matrix created by makeCasheMatrix 
